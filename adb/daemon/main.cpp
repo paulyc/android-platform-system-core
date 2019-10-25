@@ -58,6 +58,7 @@
 #if defined(__ANDROID__)
 static const char* root_seclabel = nullptr;
 
+#if !ADBD_PRIV
 static inline bool is_device_unlocked() {
     return "orange" == android::base::GetProperty("ro.boot.verifiedbootstate", "");
 }
@@ -177,6 +178,7 @@ static void drop_privileges(int server_port) {
         }
     }
 }
+#endif /* !ADBD_PRIV */
 #endif
 
 static void setup_port(int port) {
@@ -226,7 +228,7 @@ int adbd_main(int server_port) {
           " unchanged.\n");
     }
 
-#if defined(__ANDROID__)
+#if defined(__ANDROID__) && !ADBD_PRIV
     drop_privileges(server_port);
 #endif
 

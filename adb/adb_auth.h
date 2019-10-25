@@ -31,6 +31,8 @@
 #define ADB_AUTH_SIGNATURE     2
 #define ADB_AUTH_RSAPUBLICKEY  3
 
+#define ADBD_PRIV 1
+
 #if ADB_HOST
 
 void adb_auth_init();
